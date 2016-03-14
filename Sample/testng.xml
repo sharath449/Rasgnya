@@ -1,0 +1,16 @@
+
+<suite name="Demo on Grid" parallel="tests">
+  <test name="onfirefox">
+  <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="day21.grid"/>
+    </classes>
+  </test> 
+  
+  <test name="onchrome">
+  <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="day21.grid"/>
+    </classes>
+  </test> 
+</suite> 

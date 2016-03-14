@@ -1,0 +1,115 @@
+package Day15;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.server.browserlaunchers.Sleeper;
+
+public class orangehrmmaster 
+{
+	public static WebDriver driver;
+	public static String url="http://opensource.demo.orangehrm.com";
+	public static String u="Admin";
+	public static String p="admin";
+	public static void main(String[] args) 
+	{
+		String res;
+		launch(url);
+		Sleeper.sleepTightInSeconds(5);
+		res=login(u,p);
+		System.out.println(res);
+		Sleeper.sleepTightInSeconds(5);
+		orangehrmmaster om=new orangehrmmaster();
+		om.empreg("rasagnya","rasagnya");
+		Sleeper.sleepTightInSeconds(5);
+		res=om.logout();
+		System.out.println(res);
+		Sleeper.sleepTightInSeconds(5);
+		close();
+	}
+	
+	//static function without returning any value
+	public static String launch(String url)
+	{
+		driver=new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get(url);
+		driver.manage().window().maximize();
+		//validation
+		if (driver.findElement(By.id("btnLogin")).isDisplayed()) 
+		{
+//			System.out.println("Pass");
+			return "pass";
+		}
+		else
+		{
+//			System.out.println("Fail");
+			return "Fail";
+		}
+	}
+	//static function with returning value
+	public static String login(String u,String p)
+	{
+		String Expval="Welcome Admin";
+		driver.findElement(By.id("txtUsername")).sendKeys(u);
+		driver.findElement(By.id("txtPassword")).sendKeys(p);
+		driver.findElement(By.id("btnLogin")).click();
+		String Actval=driver.findElement(By.linkText("Welcome Admin")).getText();
+		//validation
+//		if (driver.findElement(By.linkText("Welcome Admi")).isDisplayed()) 
+		if(Expval.equals(Actval))
+		{
+			return "pass";
+			
+		}
+		else
+		{
+			return "fail";
+		}
+		
+	}
+	//non static function without returning any value
+	public String empreg(String f,String l)
+	{
+		String Expval=f+" "+l;
+		driver.findElement(By.linkText("PIM")).click();
+		driver.findElement(By.linkText("Add Employee")).click();
+		driver.findElement(By.id("firstName")).sendKeys(f);
+		driver.findElement(By.id("lastName")).sendKeys(l);
+		driver.findElement(By.id("btnSave")).click();
+		String Actval=driver.findElement(By.xpath(".//*[@id='profile-pic']/h1")).getText();
+		if (Expval.equals(Actval))
+		{
+//			System.out.println("Pass");
+			return "Pass";
+		}
+		else
+		{
+//			System.out.println("Fail");
+			return "Fail";
+		}
+	}
+	//non static function with returning value
+	public String logout()
+	{
+		driver.findElement(By.linkText("Welcome Admin")).click();
+		Sleeper.sleepTightInSeconds(5);
+		driver.findElement(By.linkText("Logout")).click();
+		Sleeper.sleepTightInSeconds(5);
+		if (driver.findElement(By.id("btnLogin")).isDisplayed()) 
+		{
+			return "Pass";
+		}
+		else
+		{
+			return "Fail";
+		}
+	}
+	public static void close()
+	{
+		driver.quit();
+	}
+
+}

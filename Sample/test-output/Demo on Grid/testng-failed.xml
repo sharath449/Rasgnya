@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Demo on Grid]">
+  <test name="onfirefox(failed)">
+    <classes>
+      <class name="day21.grid">
+        <methods>
+          <include name="launch"/>
+        </methods>
+      </class> <!-- day21.grid -->
+    </classes>
+  </test> <!-- onfirefox(failed) -->
+  <test name="onchrome(failed)">
+    <classes>
+      <class name="day21.grid">
+        <methods>
+          <include name="launch"/>
+        </methods>
+      </class> <!-- day21.grid -->
+    </classes>
+  </test> <!-- onchrome(failed) -->
+</suite> <!-- Failed suite [Demo on Grid] -->
